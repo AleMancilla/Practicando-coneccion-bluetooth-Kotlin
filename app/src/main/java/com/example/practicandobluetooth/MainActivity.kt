@@ -27,6 +27,11 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this,"Dispositivo no compatible con bluetooth",Toast.LENGTH_SHORT).show()
             return
         }
+        if(!m_bluetoothAdapter.isEnabled)
+        {
+            val event = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+            startActivityForResult(event,REQUEST_ENABLE_BLUETOOTH)
+        }
     }
 
     private fun pairedDeviceList()
