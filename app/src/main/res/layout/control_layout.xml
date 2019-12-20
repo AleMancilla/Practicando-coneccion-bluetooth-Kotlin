@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/id_button_on"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ON" />
+
+    <Button
+        android:id="@+id/id_button_off"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OFF" />
+
+    <Button
+        android:id="@+id/id_button_disconect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="desconectar" />
+</LinearLayout>

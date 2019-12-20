@@ -6,15 +6,16 @@ import android.bluetooth.BluetoothDevice
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var m_bluetoothAdapter: BluetoothAdapter
-    lateinit var m_pairedDevices: Set<BluetoothDevice>
-    var REQUEST_ENABLE_BLUETOOTH = 1
+    private var m_bluetoothAdapter: BluetoothAdapter? =null
+    private lateinit var m_pairedDevices: Set<BluetoothDevice>
+    private var REQUEST_ENABLE_BLUETOOTH = 1
 
     companion object {
         val EXTRA_ADDRESS: String = "Devisse Address"
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this,"Dispositivo no compatible con bluetooth",Toast.LENGTH_SHORT).show()
             return
         }
-        if(!m_bluetoothAdapter.isEnabled)
+        if(!m_bluetoothAdapter!!.isEnabled)
         {
             val event = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
             startActivityForResult(event,REQUEST_ENABLE_BLUETOOTH)
@@ -55,6 +56,14 @@ class MainActivity : AppCompatActivity() {
         }
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1,list)
         id_listView.adapter = adapter
+        id_listView.onItemClickListener = AdapterView.OnItemClickListener{_,_,position,_ ->
+            val device: BluetoothDevice = list[position]
+            val address: String = device.address
+
+            val intent = Intent(this, ControlActivity::class.java)
+            intent.putExtra(EXTRA_ADDRESS, address)
+            startActivity(intent)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
